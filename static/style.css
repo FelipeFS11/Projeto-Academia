@@ -1,10 +1,33 @@
 body {
     font-family: 'Verdana', sans-serif;
     text-align: center;
-    background: url('../static/Fundo.jpg') no-repeat center center fixed;
+    background: url('../static/Fundo.png') no-repeat center center fixed;
     background-size: cover;
-    color: white;
-    padding: 50px;
+    height: 100vh; /*define o tamanho da altura*/
+    width: 100vw; /*define o tamanho da largura*/
+    display: flex; /* Utiliza flexbox para centralizar o conteúdo */
+    flex-direction: column;
+    justify-content: space-between; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    color: #F9A01B;
+}
+
+.main {
+    align-items: center;
+    text-align: center; /* Centraliza o texto dentro do main */
+    position: relative; /* Permite posicionar os botões em relação ao main */
+    justify-content: space-around;
+    top: 10%; /* Ajuste a distância do topo conforme necessário */
+    width: 100vw;
+}
+
+.botoes {
+    position: absolute; /* Posiciona os botões sobre a imagem */
+    transform: translateX(-50%); /* Ajusta o centro dos botões */
+    display: flex; /* Permite alinhar os botões em linha */
+    flex-direction: column; /* Alinha os botões verticalmente */
+    align-items: center; /* Centraliza os botões horizontalmente */
+    left: 50%;
 }
 
 h2 {
@@ -13,6 +36,13 @@ h2 {
 
 a {
     text-decoration: none;
+    color: #F9A01B;
+    font-size: 18px;
+    margin: 10px;
+}
+
+a:hover{
+    text-decoration: underline;
     color: white;
     font-size: 18px;
     margin: 10px;
@@ -74,6 +104,8 @@ input {
 .button:hover:before {
     width: 100%;
 }
+
+
 
 .alert {
     width: 80%;

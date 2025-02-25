@@ -7,12 +7,22 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Bem-vindo, {{ current_user.first_name }}!</h2>
-    <a href="{{ url_for('chat') }}">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
-        <button class="btn btn-4 btn-sep icon-send">Fale com um personal</button>
-    </a>
+    <main class="main">
+        <h2>Bem-vindo, {{ current_user.first_name }}!</h2>
+        <div class="botoes">
+            <a href="{{ url_for('chat') }}">
+                <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+                <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+                <button class="btn btn-4 btn-sep icon-send">Fale com um personal</button>
+            </a>
+            <a href="{{ url_for('treino') }}">
+                <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+                <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+                <button class="btn btn-4 btn-sep icon-info">Seus treinos</button>
+            </a>   
+    </div>
+    </main>
 </body>
 </html>
