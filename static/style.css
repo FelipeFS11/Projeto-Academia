@@ -10,8 +10,10 @@ body {
     justify-content: space-between; /* Centraliza horizontalmente */
     align-items: center; /* Centraliza verticalmente */
     color: #F9A01B;
+    font-size: 16px;
 }
 
+/* Tela welcome */
 .main {
     align-items: center;
     text-align: center; /* Centraliza o texto dentro do main */
@@ -29,6 +31,34 @@ body {
     align-items: center; /* Centraliza os botões horizontalmente */
     left: 50%;
 }
+
+/* telas - configuraçãoes gerais */
+.main_tela{
+    margin: auto;
+    align-items: center;
+}
+/* tela de inicio*/
+.inicio_Tela > a{
+    font-size: 20px;
+    font-weight: bolder;
+}
+/* tela de login*/
+.login_Tela{
+    display: flex;
+    flex-direction: row;
+    font-size: 26px;
+    font-weight: bolder;
+}
+/* tela de cadastro*/
+.registro_Tela{
+    font-size: 26px;
+    font-weight: bolder;
+}
+.input{
+    font-size: 20px; /* tamanho da area de inserção de dados */
+}
+
+
 
 h2 {
     font-family: 'Verdana', sans-serif;
@@ -131,6 +161,8 @@ input {
     background-color: #2196F3;
     color: white;
 }
+
+
 
 
 

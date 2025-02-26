@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Bem-vindo</h1>
-    <a href="{{ url_for('login') }}">Login</a> |
-    <a href="{{ url_for('register') }}">Cadastro</a>
+    <main class="main_tela">
+        <h1>Bem-vindo</h1>
+        <div class="inicio_Tela">
+            <a href="{{ url_for('login') }}">Login</a> |
+            <a href="{{ url_for('register') }}">Cadastro</a>
+        </div>
+    </main>
 </body>
 </html>

@@ -14,14 +14,17 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-
-    <h2>Login</h2>
-    <form method="POST" action="{{ url_for('login') }}">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Senha" required>
-        <button type="submit" class="button">Entrar</button>
-        <a href="{{ url_for('welcome') }}"></a>
-    </form>
+   <main class="main_tela">
+        <h2>Login</h2>
+        <div class="login_Tela">
+            <form method="POST" action="{{ url_for('login') }}">
+                <input type="email" name="email" placeholder="Email" required class="input">
+                <input type="password" name="password" placeholder="Senha" required class="input">
+                <button type="submit" class="button">Entrar</button>
+                <a href="{{ url_for('welcome') }}"></a>
+            </form>
+        </div>
+   </main>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
