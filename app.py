@@ -76,6 +76,11 @@ def chat():
 def treino():
     return render_template('treino.html')
 
+@app.route('/user')
+@login_required
+def user():
+    return render_template('user.html')
+
 @app.route('/dashboard')
 @login_required
 def dashboard():

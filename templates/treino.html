@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <nav>
+        <a href="{{ url_for('welcome') }}">
+            <button class="btn_nav">Voltar</button>
+        </a>
+    </nav>
     <main>
-        <h2>Bem-vindo, {{ current_user.first_name }}!</h2>
+        <h2>Acesse seus treinos</h2>
     </main>
 </body>
 </html>

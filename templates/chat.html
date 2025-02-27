@@ -7,9 +7,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Fale com um Personal</h2>
-    <a href="{{ url_for('welcome') }}">
-        <button>Voltar</button>
-    </a>
+    <nav>
+        <a href="{{ url_for('welcome') }}">
+            <button class="btn_nav">Voltar</button>
+        </a>
+    </nav>
+    <main>
+        <h2>Fale com um Personal</h2>
+    </main>
 </body>
 </html>

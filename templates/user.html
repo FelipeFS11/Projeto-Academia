@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suas informações</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('welcome') }}">
+            <button class="btn_nav">Voltar</button>
+        </a>
+    </nav>
+    <main>
+        <h2>Suas informações</h2>
+        <div class="tabela_info">
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <td>[Nome do Usuário]</td>
+                </tr>
+                <tr>
+                    <th>Endereço</th>
+                    <td>[Endereço do Usuário]</td>
+                </tr>
+                <tr>
+                    <th>Data de Nascimento</th>
+                    <td>[Data de Nascimento do Usuário]</td>
+                </tr>
+                <tr>
+                    <th>Forma de Pagamento</th>
+                    <td>[Forma de Pagamento do Usuário]</td>
+                </tr>
+                <tr>
+                    <th>Dias de Treino</th>
+                    <td>[Dias de Treino do Usuário]</td>
+                </tr>
+            </table>        
+        </div>
+    </main>
+</body>
+</html>
