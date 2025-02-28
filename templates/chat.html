@@ -14,6 +14,29 @@
     </nav>
     <main>
         <h2>Fale com um Personal</h2>
+        <div class="chat-box">
+            <a><link rel="stylesheet" href="{{ url_for('static', filename='caixademsg.css') }}"></a>
+            <div class="messages" id="messages"></div>
+            <input type="text" id="messageInput" placeholder="Mensagem">
+            <button type="submit" class="button" onclick="sendMessage()">Enviar</button>
+        </div>
     </main>
+
+    <script>
+        function sendMessage() {
+            let input = document.getElementById("messageInput");
+            let message = input.value.trim();
+            if (message !== "") {
+                let messagesContainer = document.getElementById("messages");
+                let messageElement = document.createElement("div");
+                messageElement.classList.add("message");
+                messageElement.textContent = message;
+                messagesContainer.appendChild(messageElement);
+                input.value = "";
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+    </script>
 </body>
 </html>
+
