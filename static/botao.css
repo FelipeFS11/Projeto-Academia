@@ -128,16 +128,16 @@
   
   /* Button 3 */
   .btn-4 {
-    background: #34495e;
+    background: #ca8b43;
     color: #fff;
   }
   
   .btn-4:hover {
-    background: #2c3e50;
+    background: #ca8b43;
   }
   
   .btn-4:active {
-    background: #2c3e50;
+    background: #ca8b43;
     top: 2px;
   }
   

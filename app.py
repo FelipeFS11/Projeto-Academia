@@ -1,7 +1,10 @@
+from datetime import datetime
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
+from flask_migrate import Migrate
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -10,12 +13,15 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+migrate = Migrate(app, db)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
     email = db.Column(db.String(150), unique=True, nullable=False)
+    data_nascimento = db.Column(db.Date)
+    endereco = db.Column(db.String(150))
     password = db.Column(db.String(150), nullable=False)
 
 @login_manager.user_loader
@@ -32,20 +38,32 @@ def register():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         email = request.form['email']
+        data_nascimento_str = request.form['data_nascimento']
+        endereco = request.form['endereco']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
+
+        try:
+            data_nascimento = datetime.strptime(data_nascimento_str, "%d/%m/%Y")
+        except ValueError:
+            flash('Formato de data inválido. Use DD/MM/AAAA.', 'danger')
+            return redirect(url_for('register'))
+        
         if password != confirm_password:
             flash('As senhas não coincidem', 'danger')
             return redirect(url_for('register'))
+        
         if User.query.filter_by(email=email).first():
             flash('Email já cadastrado!', 'danger')
             return redirect(url_for('register'))
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        user = User(first_name=first_name, last_name=last_name, email=email, password=hashed_password)
+
+        user = User(first_name=first_name, last_name=last_name, email=email, data_nascimento=data_nascimento, endereco=endereco, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Cadastro realizado com sucesso!', 'success')
         return redirect(url_for('login'))
+    
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])

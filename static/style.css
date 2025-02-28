@@ -1,8 +1,9 @@
 /* Variaveis CSS*/
 :root{
     --cor_letra: #F9A01B;
-    --cor_fundoBotao1: #4c6680;
-    --cor_fundoBotao2: #2c3e50;
+    --cor_letra_navegação: #ffffff;
+    --cor_fundoBotao1: #F9A01B;
+    --cor_fundoBotao2: #F9A01B;
 }
 
 body {
@@ -79,7 +80,7 @@ nav{
 .btn_nav{
     border-radius: 5px;
     padding: 5px;
-    color: var(--cor_letra);
+    color: var(--cor_letra_navegação);
     font-weight: bolder;
     background-color: var(--cor_fundoBotao1);
 }
@@ -97,7 +98,7 @@ th, td {
     text-align: left;
 }
 th {
-    background-color: #f2f2f2;
+    background-color: #ddd;
 }
 
 h2 {
@@ -106,7 +107,7 @@ h2 {
 
 a {
     text-decoration: none;
-    color: var(--cor_letra);
+    color: #F9A01B;
     font-size: 18px;
     margin: 10px;
 }
