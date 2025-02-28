@@ -14,7 +14,7 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-   <main class="main_tela">
+    <main class="main_tela">
         <h2>Login</h2>
         <div class="login_Tela">
             <form method="POST" action="{{ url_for('login') }}">
@@ -24,7 +24,7 @@
                 <a href="{{ url_for('welcome') }}"></a>
             </form>
         </div>
-   </main>
+    </main>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

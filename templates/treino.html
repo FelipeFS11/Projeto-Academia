@@ -3,8 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-vindo</title>
+    <title>Treinos da Semana</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #F9A01B;
+            color: white;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        .btn_nav{
+            border-radius: 5px;
+            padding: 5px;
+            color: var(--cor_letra_navegação);
+            font-weight: bolder;
+            background-color: var(--cor_fundoBotao1);
+        }       
+    </style>
 </head>
 <body>
     <nav>
@@ -13,7 +51,44 @@
         </a>
     </nav>
     <main>
-        <h2>Acesse seus treinos</h2>
+        <h2>Seus Treinos</h2>
+        <table>
+            <tr>
+                <th>Dia</th>
+                <th>Treino</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>Segunda-feira</td>
+                <td>Peito e Tríceps</td>
+                <td><img src="{{ url_for('static', filename='treino-peito.PNG') }}" alt="Treino Peito"></td>
+            </tr>
+            <tr>
+                <td>Terça-feira</td>
+                <td>Costas e Bíceps</td>
+                <td><img src="{{ url_for('static', filename='treino-costa.PNG') }}" alt="Treino Costas"></td>
+            </tr>
+            <tr>
+                <td>Quarta-feira</td>
+                <td>Pernas - Quadríceps</td>
+                <td><img src="{{ url_for('static', filename='treino-pernas.PNG') }}" alt="Treino Pernas"></td>
+            </tr>
+            <tr>
+                <td>Quinta-feira</td>
+                <td>Ombro e Trapézio</td>
+                <td><img src="{{ url_for('static', filename='treino_ombro.PNG') }}" alt="Treino Ombro"></td>
+            </tr>
+            <tr>
+                <td>Sexta-feira</td>
+                <td>Bíceps e Tríceps</td>
+                <td><img src="{{ url_for('static', filename='treino-biceps.PNG') }}" alt="Treino Bíceps e Tríceps"></td>
+            </tr>
+            <tr>
+                <td>Sábado</td>
+                <td>Pernas - Posterior</td>
+                <td><img src="{{ url_for('static', filename='treino-pernas2.PNG') }}" alt="Treino Pernas 2"></td>
+            </tr>
+        </table>
     </main>
 </body>
 </html>

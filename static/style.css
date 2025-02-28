@@ -9,7 +9,7 @@
 body {
     font-family: 'Verdana', sans-serif;
     text-align: center;
-    background: url('../static/Fundo.png') no-repeat center center fixed;
+    background: url('../static/FundoM.png') no-repeat center center fixed;
     background-size: cover;
     height: 100vh; /*define o tamanho da altura*/
     width: 100vw; /*define o tamanho da largura*/
@@ -55,7 +55,7 @@ body {
 .login_Tela{
     display: flex;
     flex-direction: row;
-    font-size: 26px;
+    font-size: 15px;
     font-weight: bolder;
 }
 /* tela de cadastro*/
@@ -64,7 +64,7 @@ body {
     font-weight: bolder;
 }
 .input{
-    font-size: 20px; /* tamanho da area de inserção de dados */
+    font-size: 15px; /* tamanho da area de inserção de dados */
 }
 
 /* Menu de navegação */
