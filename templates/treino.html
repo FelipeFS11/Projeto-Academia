@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treinos da Semana</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             font-family: 'Verdana', sans-serif;
@@ -46,9 +47,19 @@
 </head>
 <body>
     <nav>
-        <a href="{{ url_for('welcome') }}">
-            <button class="btn_nav">Voltar</button>
-        </a>
+        <div class="top-bar">
+            <div class="left-section">
+                <button class="back-button">
+                    <a href="{{ url_for('welcome') }}">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </button>
+            </div>
+            <div class="right-section">
+                <i class="fas fa-user user-icon"></i>
+                <span class="user-name">{{ current_user.first_name}}</span>
+            </div>
+        </div>
     </nav>
     <main>
         <h2>Seus Treinos</h2>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suas informações</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+</head>
+<body>
+    <nav>
+        <div class="top-bar">
+            <div class="left-section">
+                <button class="back-button">
+                    <a href="{{ url_for('welcome') }}">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </button>
+            </div>
+            <div class="right-section">
+                <i class="fas fa-user user-icon"></i>
+                <span class="user-name">{{ current_user.first_name}}</span>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <h2>Altere suas informações</h2>
+        <h2>Escolha a Forma de Pagamento</h2>
+
+    <form action="/processar_pagamento" method="post">
+        <fieldset>
+            <legend>Opções de Pagamento</legend>
+
+            <label>
+                <input type="radio" name="forma_pagamento" value="cartao_credito" required>
+                Cartão de Crédito
+            </label>
+
+            <label>
+                <input type="radio" name="forma_pagamento" value="boleto" required>
+                Boleto Bancário
+            </label>
+
+            <label>
+                <input type="radio" name="forma_pagamento" value="pix" required>
+                PIX
+            </label>
+
+            <label>
+                <input type="radio" name="forma_pagamento" value="paypal" required>
+                PayPal
+            </label>
+        </fieldset>
+
+        <input type="submit" value="Solicitar Alteração">
+    </form>
+    </main>
+</body>
+</html>

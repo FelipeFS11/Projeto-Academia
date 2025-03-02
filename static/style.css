@@ -69,13 +69,56 @@ body {
 
 /* Menu de navegação */
 nav{
-    width: 100vw;
+    width: 90vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 20px;
+    height: 30px;
     margin-top: 20px;
+    margin-bottom: 50px;
 }
+.top-bar {
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: none; /* Cor de fundo da barra */
+    padding: 10px;
+    font-family: sans-serif;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+.back-button {
+    background-color: #e0e0e0; /* Cor de fundo do botão */
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.back-button i {
+    margin-right: 5px;
+}
+
+.right-section {
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+}
+.right-section i{
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
 /* Botões de navegação entre telas */
 .btn_nav{
     border-radius: 5px;
@@ -83,13 +126,16 @@ nav{
     color: var(--cor_letra_navegação);
     font-weight: bolder;
     background-color: var(--cor_fundoBotao1);
+    cursor: pointer;
 }
 .btn_nav:hover{
     background-color: var(--cor_fundoBotao2);
 }
 /* Configurações da tabela*/
 table {
-    width: 100%;
+    margin-left: 20px;
+    align-items: center;
+    width: 90%;
     border-collapse: collapse;
 }
 th, td {
@@ -110,6 +156,32 @@ a {
     color: #F9A01B;
     font-size: 18px;
     margin: 10px;
+}
+
+/*Formas de Pagamento*/
+fieldset {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+legend {
+    font-weight: bold;
+    padding: 5px;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+input[type="submit"] {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+input[type="submit"]::after {
+    background-color: #4CAF50;
+    color: white;
 }
 
 a:hover{
@@ -176,6 +248,18 @@ input {
     width: 100%;
 }
 
+/*Botão para alterar informações*/
+.alterar{
+    width: 90vw;
+    align-items: center;
+    margin: auto;
+}
+.alterarInfo{
+    width: 80vw;
+    padding: 20px 5px;
+    margin-top: 10px;
+    margin-left: 0px;
+}
 
 
 .alert {

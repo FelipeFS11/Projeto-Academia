@@ -99,6 +99,11 @@ def treino():
 def user():
     return render_template('user.html')
 
+@app.route('/adicionarInfo')
+@login_required
+def adicionarInfo():
+    return render_template('adicionarInfo.html')
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
