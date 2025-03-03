@@ -25,36 +25,27 @@
         </div>
     </nav>
     <main>
-        <h2>Suas informações</h2>
-        <div class="tabela_info">
-            <table>
-                <tr>
-                    <th>Nome</th>
-                    <td>{{ current_user.first_name}} {{ current_user.last_name }}
-                </tr>
-                <tr>
-                    <th>Endereço</th>
-                    <td>{{ current_user.endereco }}</td>
-                </tr>
-                <tr>
-                    <th>Data de Nascimento</th>
-                    <td>{{ current_user.data_nascimento }}</td>
-                </tr>
-                <tr>
-                    <th>Forma de Pagamento</th>
-                    <td>{{ current_user.forma_pagamento }}</td>
-                </tr>
-                <tr>
-                    <th>Dias de Treino</th>
-                    <td>[Dias de Treino do Usuário]</td>
-                </tr>
-            </table>        
-        </div>
-        <div class="alterar">
-            <a href="{{ url_for('adicionarInfo') }}">
-                <button type="submit" class="button">Alterar ou Adicionar</button>
+        <h2>Suas Informações</h2>
+        <div class="botoes">
+            <a href="{{ url_for('infouser') }}">
+                <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+                <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+                <button class="btn btn-4 btn-sep icon-info">Suas Informações</button>
             </a>
-        </div>
+            <a href="{{ url_for('avaliacaofisica') }}">
+                <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+                <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+                <button class="btn btn-4 btn-sep icon-info">Avaliações Físicas</button>
+            </a>
+            <a href="{{ url_for('adicionarInfo') }}">
+                <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+                <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+                <button class="btn btn-4 btn-sep icon-info">Alterar Ou Adicionar</button>
+            </a>      
+        </div> 
     </main>
 </body>
 </html>

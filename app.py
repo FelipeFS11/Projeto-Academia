@@ -100,6 +100,16 @@ def treino():
 def user():
     return render_template('user.html')
 
+@app.route('/infouser')
+@login_required
+def infouser():
+    return render_template('infouser.html')
+
+@app.route('/avaliacaofisica')
+@login_required
+def avaliacaofisica():
+    return render_template('avaliacaofisica.html')
+
 @app.route('/adicionarInfo', methods=['GET', 'POST'])
 @login_required
 def adicionarInfo():
