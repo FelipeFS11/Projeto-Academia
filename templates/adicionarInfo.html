@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suas informações</title>
+    <title>Alterar Informações</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-</head>
 </head>
 <body>
     <nav>
         <div class="top-bar">
             <div class="left-section">
                 <button class="back-button">
-                    <a href="{{ url_for('welcome') }}">
+                    <a href="{{ url_for('user') }}">
                         <i class="fas fa-arrow-left"></i> Voltar
                     </a>
                 </button>
             </div>
             <div class="right-section">
                 <i class="fas fa-user user-icon"></i>
-                <span class="user-name">{{ current_user.first_name}}</span>
+                <span class="user-name">{{ current_user.first_name }}</span>
             </div>
         </div>
     </nav>
@@ -28,33 +27,36 @@
         <h2>Altere suas informações</h2>
         <h2>Escolha a Forma de Pagamento</h2>
 
-    <form action="/processar_pagamento" method="post">
-        <fieldset>
-            <legend>Opções de Pagamento</legend>
+        <form action="{{ url_for('adicionarInfo') }}" method="post">
+            <fieldset>
+                <legend>Opções de Pagamento</legend>
 
-            <label>
-                <input type="radio" name="forma_pagamento" value="cartao_credito" required>
-                Cartão de Crédito
-            </label>
+                <label>
+                    <input type="radio" name="forma_pagamento" value="Cartão de Crédito" required 
+                    {% if current_user.forma_pagamento == 'cartao_credito' %}checked{% endif %}>
+                    Cartão de Crédito
+                </label>
 
-            <label>
-                <input type="radio" name="forma_pagamento" value="boleto" required>
-                Boleto Bancário
-            </label>
+                <label>
+                    <input type="radio" name="forma_pagamento" value="Boleto" required 
+                    {% if current_user.forma_pagamento == 'boleto' %}checked{% endif %}>
+                    Boleto Bancário
+                </label>
 
-            <label>
-                <input type="radio" name="forma_pagamento" value="pix" required>
-                PIX
-            </label>
+                <label>
+                    <input type="radio" name="forma_pagamento" value="Pix" required 
+                    {% if current_user.forma_pagamento == 'pix' %}checked{% endif %}>
+                    PIX
+                </label>
 
-            <label>
-                <input type="radio" name="forma_pagamento" value="paypal" required>
-                PayPal
-            </label>
-        </fieldset>
-
-        <input type="submit" value="Solicitar Alteração">
-    </form>
+                <label>
+                    <input type="radio" name="forma_pagamento" value="PayPal" required 
+                    {% if current_user.forma_pagamento == 'paypal' %}checked{% endif %}>
+                    PayPal
+                </label>
+            </fieldset>
+            <button type="submit" class="button">Salvar</button>
+        </form>
     </main>
 </body>
 </html>
