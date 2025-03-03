@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 from flask_migrate import Migrate
-
+from flask_login import current_user
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -23,6 +23,7 @@ class User(UserMixin, db.Model):
     data_nascimento = db.Column(db.Date)
     endereco = db.Column(db.String(150))
     password = db.Column(db.String(150), nullable=False)
+    forma_pagamento = db.Column(db.String(50)) 
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -99,9 +100,21 @@ def treino():
 def user():
     return render_template('user.html')
 
-@app.route('/adicionarInfo')
+@app.route('/adicionarInfo', methods=['GET', 'POST'])
 @login_required
 def adicionarInfo():
+    if request.method == 'POST':
+        forma_pagamento = request.form.get('forma_pagamento')
+
+        if forma_pagamento:
+            current_user.forma_pagamento = forma_pagamento
+            db.session.commit()
+            flash('Forma de pagamento atualizada com sucesso!', 'success')
+        else:
+            flash('Por favor, selecione uma forma de pagamento.', 'danger')
+
+        return redirect(url_for('user'))  # Redireciona para a página de informações do usuário
+
     return render_template('adicionarInfo.html')
 
 @app.route('/dashboard')
