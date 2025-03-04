@@ -22,8 +22,10 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(150), unique=True, nullable=False)
     data_nascimento = db.Column(db.Date)
     endereco = db.Column(db.String(150))
+    contato = db.Column(db.String(50))
     password = db.Column(db.String(150), nullable=False)
-    forma_pagamento = db.Column(db.String(50)) 
+    forma_pagamento = db.Column(db.String(50))
+    ultimo_pagamento = db.Column(db.Date) 
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -39,15 +41,16 @@ def register():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         email = request.form['email']
+        contato = request.form['contato']
         data_nascimento_str = request.form['data_nascimento']
         endereco = request.form['endereco']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
 
         try:
-            data_nascimento = datetime.strptime(data_nascimento_str, "%d/%m/%Y")
+            data_nascimento = datetime.strptime(data_nascimento_str, "%Y-%m-%d").date()
         except ValueError:
-            flash('Formato de data inválido. Use DD/MM/AAAA.', 'danger')
+            flash('Formato de data inválido para Data de Nascimento.', 'danger')
             return redirect(url_for('register'))
         
         if password != confirm_password:
@@ -59,7 +62,7 @@ def register():
             return redirect(url_for('register'))
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-        user = User(first_name=first_name, last_name=last_name, email=email, data_nascimento=data_nascimento, endereco=endereco, password=hashed_password)
+        user = User(first_name=first_name, last_name=last_name, email=email, contato=contato, data_nascimento=data_nascimento, endereco=endereco, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Cadastro realizado com sucesso!', 'success')
@@ -110,22 +113,53 @@ def infouser():
 def avaliacaofisica():
     return render_template('avaliacaofisica.html')
 
+
 @app.route('/adicionarInfo', methods=['GET', 'POST'])
 @login_required
 def adicionarInfo():
     if request.method == 'POST':
+        nome = request.form.get('nome')
+        sobrenome = request.form.get('sobrenome')
+        endereco = request.form.get('endereco')
+        data_nascimento_str = request.form.get('data_nascimento')
+        contato = request.form.get('contato')
         forma_pagamento = request.form.get('forma_pagamento')
+        ultimo_pagamento_str = request.form.get('ultimo_pagamento')
 
-        if forma_pagamento:
-            current_user.forma_pagamento = forma_pagamento
-            db.session.commit()
-            flash('Forma de pagamento atualizada com sucesso!', 'success')
-        else:
-            flash('Por favor, selecione uma forma de pagamento.', 'danger')
+        # Validando e convertendo a data de nascimento
+        try:
+            data_nascimento = datetime.strptime(data_nascimento_str, "%Y-%m-%d").date()
+        except ValueError:
+            flash('Formato de data inválido para Data de Nascimento.', 'danger')
+            return redirect(url_for('user'))
 
-        return redirect(url_for('user'))  # Redireciona para a página de informações do usuário
+        # Validando e convertendo a data do último pagamento
+        try:
+            ultimo_pagamento = datetime.strptime(ultimo_pagamento_str, "%Y-%m-%d").date()
+        except ValueError:
+            flash('Formato de data inválido para Último Pagamento.', 'danger')
+            return redirect(url_for('user'))
 
-    return render_template('adicionarInfo.html')
+        # Atualizando o usuário no banco de dados
+        current_user.first_name = nome
+        current_user.last_name = sobrenome
+        current_user.endereco = endereco
+        current_user.data_nascimento = data_nascimento
+        current_user.contato = contato
+        current_user.forma_pagamento = forma_pagamento
+        current_user.ultimo_pagamento = ultimo_pagamento
+
+        # Salvando as alterações
+        db.session.commit()
+        flash('Informações atualizadas com sucesso!', 'success')
+        return redirect(url_for('user'))
+
+    return render_template('adicionarInfo.html', current_user=current_user)
+
+@app.route('/alteraçãodados')
+@login_required
+def alteraçãodados():
+    return render_template('alteraçãodados.html')
 
 @app.route('/dashboard')
 @login_required
