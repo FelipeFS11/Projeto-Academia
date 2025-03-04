@@ -132,6 +132,32 @@ def infouser():
 def avaliacaofisica():
     return render_template('avaliacaofisica.html')
 
+from flask import jsonify
+
+@app.route('/buscar_usuario')
+@login_required
+def buscar_usuario():
+    nome = request.args.get('nome')
+
+    if not nome:
+        return jsonify({"error": "Nome não fornecido"}), 400
+    
+    usuario = User.query.filter(
+        (User.first_name.ilike(f"%{nome}%")) | 
+        (User.last_name.ilike(f"%{nome}%"))
+    ).first()
+    
+    if not usuario:
+        return jsonify({"error": "Usuário não encontrado"}), 404
+
+    return jsonify({
+        "first_name": usuario.first_name,
+        "last_name": usuario.last_name,
+        "endereco": usuario.endereco if usuario.endereco else "Não informado",
+        "data_nascimento": usuario.data_nascimento.strftime('%Y-%m-%d') if usuario.data_nascimento else "Não informado",
+        "forma_pagamento": usuario.forma_pagamento if usuario.forma_pagamento else "Não informado",
+        "dias_treino": "Dias de Treino não cadastrados"
+    })
 
 @app.route('/adicionarInfo', methods=['GET', 'POST'])
 @login_required
