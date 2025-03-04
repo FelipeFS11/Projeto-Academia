@@ -76,12 +76,12 @@ def login():
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
-        if user.email == 'adm@gmail.com' and bcrypt.check_password_hash(user.password, password):
+        if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('administrador'))
-        elif user and bcrypt.check_password_hash(user.password, password):
-            login_user(user)
-            return redirect(url_for('welcome'))
+            if user.email == 'adm@gmail.com':
+                return redirect(url_for('administrador'))
+            else:
+                return redirect(url_for('welcome'))
         else:
             flash('Login ou senha incorretos', 'danger')
     return render_template('login.html')
