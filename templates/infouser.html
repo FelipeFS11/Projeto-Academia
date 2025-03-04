@@ -32,6 +32,14 @@
                 <td>{{ current_user.first_name}} {{ current_user.last_name }}
             </tr>
             <tr>
+                <th>Email</th>
+                <td>{{ current_user.email }}</td>
+            </tr>
+            <tr>
+                <th>Contato</th>
+                <td>{{ current_user.contato }}</td>
+            </tr>
+            <tr>
                 <th>Endereço</th>
                 <td>{{ current_user.endereco }}</td>
             </tr>
@@ -42,6 +50,10 @@
             <tr>
                 <th>Forma de Pagamento</th>
                 <td>{{ current_user.forma_pagamento }}</td>
+            </tr>
+            <tr>
+                <th>Último Pagamento</th>
+                <td>{{ current_user.ultimo_pagamento }}</td>
             </tr>
             <tr>
                 <th>Dias de Treino</th>
