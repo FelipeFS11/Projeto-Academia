@@ -78,7 +78,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            if user.email == 'adm@gmail.com':
+            if user.email == 'teste11@gmail.com':
                 return redirect(url_for('administrador'))
             else:
                 return redirect(url_for('welcome'))
