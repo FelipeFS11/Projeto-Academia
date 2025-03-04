@@ -9,25 +9,34 @@
 body {
     font-family: 'Verdana', sans-serif;
     text-align: center;
-    background: url('../static/FundoM.png') no-repeat center center fixed;
-    background-size: cover;
+    background: url('../static/image/FundoM.png') no-repeat center center fixed;
+    background-size: contain;
+    background-color: black;
     height: 100vh; /*define o tamanho da altura*/
-    width: 100vw; /*define o tamanho da largura*/
+    width: 100%; /*define o tamanho da largura*/
     display: flex; /* Utiliza flexbox para centralizar o conteúdo */
     flex-direction: column;
-    /*justify-content: space-evenly;  Centraliza horizontalmente */
     align-items: center; /* Centraliza verticalmente */
     color: var(--cor_letra);
     font-size: 16px;
 }
 
-
+.mobile-container {
+    width: 475px; /* Largura de um iPhone padrão */
+    height: 100%; /* Altura do iPhone X */
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
 /* Tela welcome */
 .main {
     align-items: center;
     text-align: center; /* Centraliza o texto dentro do main */
     position: relative; /* Permite posicionar os botões em relação ao main */
-    justify-content: space-around;
+    justify-content: space-between;
     top: 10%; /* Ajuste a distância do topo conforme necessário */
     width: 100vw;
 }
@@ -68,11 +77,11 @@ body {
 }
 
 /* Menu de navegação */
-nav{
+nav{ 
     width: 90vw;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     height: 30px;
     margin-top: 20px;
     margin-bottom: 50px;
@@ -80,16 +89,16 @@ nav{
 .top-bar {
     width: 90vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     background-color: none; /* Cor de fundo da barra */
     padding: 10px;
     font-family: sans-serif;
 }
-
 .left-section {
     display: flex;
     align-items: center;
+    margin-left: 10px;
 }
 
 .back-button {
@@ -103,16 +112,18 @@ nav{
 }
 
 .back-button i {
-    margin-right: 5px;
+    margin-right: 0px;
 }
 
 .right-section {
     height: 32px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    font-size: 18px;
+    justify-content: space-evenly;
+    font-size: 16px;
     font-weight: bold;
+    margin-right: 30px;
+    margin-left: -50px;
 }
 .right-section i{
     margin-top: 0px;

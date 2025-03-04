@@ -8,77 +8,76 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <nav>
-        <div class="top-bar">
-            <div class="left-section">
-                <button class="back-button">
-                    <a href="{{ url_for('user') }}">
-                        <i class="fas fa-arrow-left"></i> Voltar
-                    </a>
-                </button>
+        <nav>
+            <div class="top-bar">
+                <div class="left-section">
+                    <button class="back-button">
+                        <a href="{{ url_for('user') }}">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </a>
+                    </button>
+                </div>
+                <div class="right-section">
+                    <i class="fas fa-user user-icon"></i>
+                    <span class="user-name">{{ current_user.first_name }}</span>
+                </div>
             </div>
-            <div class="right-section">
-                <i class="fas fa-user user-icon"></i>
-                <span class="user-name">{{ current_user.first_name }}</span>
-            </div>
-        </div>
-    </nav>
-    <main>
-        <h2>Altere suas informações</h2>
-        
-        <form action="{{ url_for('adicionarInfo') }}" method="post">
-            <fieldset>
-                <legend>Dados Pessoais</legend>
-                <label>Nome:
-                    <input type="text" name="nome" value="{{ current_user.first_name }}" required>
-                </label>
-                <label>Sobrenome:
-                    <input type="text" name="sobrenome" value="{{ current_user.last_name }}" required>
-                </label>
-                <label>Endereço:
-                    <input type="text" name="endereco" value="{{ current_user.endereco }}" required>
-                </label>
-                <label>Data de Nascimento:
-                    <input type="date" name="data_nascimento" value="{{ current_user.data_nascimento }}" required>
-                </label>
-                <label>Contato:
-                    <input type="text" name="contato" value="{{ current_user.contato }}" required>
-                </label>
-            </fieldset>
-
-            <fieldset>
-                <legend>Opções de Pagamento</legend>
-                <label>
-                    <input type="radio" name="forma_pagamento" value="Cartão de Crédito" required 
-                    {% if current_user.forma_pagamento == 'Cartão de Crédito' %}checked{% endif %}>
-                    Cartão de Crédito
-                </label>
-                <label>
-                    <input type="radio" name="forma_pagamento" value="Boleto" required 
-                    {% if current_user.forma_pagamento == 'Boleto' %}checked{% endif %}>
-                    Boleto Bancário
-                </label>
-                <label>
-                    <input type="radio" name="forma_pagamento" value="Pix" required 
-                    {% if current_user.forma_pagamento == 'Pix' %}checked{% endif %}>
-                    PIX
-                </label>
-                <label>
-                    <input type="radio" name="forma_pagamento" value="PayPal" required 
-                    {% if current_user.forma_pagamento == 'PayPal' %}checked{% endif %}>
-                    PayPal
-                </label>
-            </fieldset>
-
-            <fieldset>
-                <legend>Último Pagamento</legend>
-                <label>Data do Último Pagamento:
-                    <input type="date" name="ultimo_pagamento" value="{{ current_user.ultimo_pagamento }}" required>
-                </label>
-            </fieldset>
-
-            <button type="submit" class="button">Salvar</button>
-        </form>
-    </main>
+        </nav>
+        <main>
+            <h2>Altere suas informações</h2>
+            
+            <form action="{{ url_for('adicionarInfo') }}" method="post">
+                <fieldset>
+                    <legend>Dados Pessoais</legend>
+                    <label>Nome:
+                        <input type="text" name="nome" value="{{ current_user.first_name }}" required>
+                    </label>
+                    <label>Sobrenome:
+                        <input type="text" name="sobrenome" value="{{ current_user.last_name }}" required>
+                    </label>
+                    <label>Endereço:
+                        <input type="text" name="endereco" value="{{ current_user.endereco }}" required>
+                    </label>
+                    <label>Data de Nascimento:
+                        <input type="date" name="data_nascimento" value="{{ current_user.data_nascimento }}" required>
+                    </label>
+                    <label>Contato:
+                        <input type="text" name="contato" value="{{ current_user.contato }}" required>
+                    </label>
+                </fieldset>
+    
+                <fieldset>
+                    <legend>Opções de Pagamento</legend>
+                    <label>
+                        <input type="radio" name="forma_pagamento" value="Cartão de Crédito" required 
+                        {% if current_user.forma_pagamento == 'Cartão de Crédito' %}checked{% endif %}>
+                        Cartão de Crédito
+                    </label>
+                    <label>
+                        <input type="radio" name="forma_pagamento" value="Boleto" required 
+                        {% if current_user.forma_pagamento == 'Boleto' %}checked{% endif %}>
+                        Boleto Bancário
+                    </label>
+                    <label>
+                        <input type="radio" name="forma_pagamento" value="Pix" required 
+                        {% if current_user.forma_pagamento == 'Pix' %}checked{% endif %}>
+                        PIX
+                    </label>
+                    <label>
+                        <input type="radio" name="forma_pagamento" value="PayPal" required 
+                        {% if current_user.forma_pagamento == 'PayPal' %}checked{% endif %}>
+                        PayPal
+                    </label>
+                </fieldset>
+    
+                <fieldset>
+                    <legend>Último Pagamento</legend>
+                    <label>Data do Último Pagamento:
+                        <input type="date" name="ultimo_pagamento" value="{{ current_user.ultimo_pagamento }}" required>
+                    </label>
+                </fieldset>
+                <button type="submit" class="button">Salvar</button>
+            </form>
+        </main>
 </body>
 </html>
