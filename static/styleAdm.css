@@ -1,0 +1,28 @@
+.busca{
+    margin-bottom: 10px;
+}
+
+.busca input{
+    width: 500px;
+    height: 20px;
+}
+
+#busca{
+    background-color: gainsboro;
+    color: black;
+}
+
+#busca table{
+    color: black;
+    border-color: black;
+    width: 500px;
+}
+
+#busca td, tr{
+    color: black;
+    border-color: black;
+}
+
+#altera{
+    margin-top: 30px;
+}

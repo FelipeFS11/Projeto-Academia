@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+</head>
+<body>
+    <nav>
+        <div class="top-bar">
+            <div class="left-section">
+                <button class="back-button">
+                    <a href="{{ url_for('login') }}">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </button>
+            </div>
+            <div class="right-section">
+                <i class="fas fa-user user-icon"></i>
+                <span class="user-name">{{ current_user.first_name}}</span>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <h2>Bem vindo administrador</h2>
+        <div class="botoes">
+            <a href="{{ url_for('buscaCli') }}">
+                <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+                <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+                <button class="btn btn-4 btn-sep icon-info">Buscar Clientes</button>
+            </a>
+            <a href="{{ url_for('alteraCli') }}">
+                <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+                <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+                <button class="btn btn-4 btn-sep icon-info">Alterar Ou Adicionar</button>
+            </a>      
+        </div> 
+    </main>
+</body>
+</html>

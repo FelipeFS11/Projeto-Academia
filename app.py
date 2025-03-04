@@ -73,12 +73,31 @@ def login():
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
-        if user and bcrypt.check_password_hash(user.password, password):
+        if user.email == 'adm@gmail.com' and bcrypt.check_password_hash(user.password, password):
+            login_user(user)
+            return redirect(url_for('administrador'))
+        elif user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('welcome'))
         else:
             flash('Login ou senha incorretos', 'danger')
     return render_template('login.html')
+
+@app.route('/administrador')
+@login_required
+def administrador():
+    return render_template('administrador.html')
+
+@app.route('/buscaCli')
+@login_required
+def buscaCli():
+    return render_template('buscaCli.html')
+
+@app.route('/alteraCli')
+@login_required
+def alteraCli():
+    return render_template('alteraCli.html')
+
 
 @app.route('/welcome')
 @login_required

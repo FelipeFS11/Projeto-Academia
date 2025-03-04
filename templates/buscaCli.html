@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suas informações</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleAdm.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+</head>
+<body>
+    <nav>
+        <div class="top-bar">
+            <div class="left-section">
+                <button class="back-button">
+                    <a href="{{ url_for('administrador') }}">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </button>
+            </div>
+            <div class="right-section">
+                <i class="fas fa-user user-icon"></i>
+                <span class="user-name">{{ current_user.first_name}}</span>
+            </div>
+        </div>
+    </nav>
+    <div class="busca">
+            <input type="text" id="messageInput" placeholder="Digite um nome">
+            <button type="submit" class="button" onclick="busca()">Buscar</button>
+    </div>
+    <div class="tabela_info" id="busca">
+        <h2>Informações Pessoais</h2>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <td>[Nome]
+            </tr>
+            <tr>
+                <th>Endereço</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Data de Nascimento</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Forma de Pagamento</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Dias de Treino</th>
+                <td>[Dias de Treino do Usuário]</td>
+            </tr>
+        </table>        
+    </div>
+</body>
+</html>
