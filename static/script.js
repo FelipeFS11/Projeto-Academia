@@ -7,3 +7,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }, 3000); // Esconde após 3 segundos
 });
+

@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
@@ -96,11 +96,52 @@ def administrador():
 def buscaCli():
     return render_template('buscaCli.html')
 
-@app.route('/alteraCli')
+@app.route('/alteraCli', methods=['GET'])
+@login_required
+def alteraCli_get():
+    return render_template('alteraCli.html', current_user=current_user)
+
+@app.route('/alteraCli', methods=['POST'])
 @login_required
 def alteraCli():
-    return render_template('alteraCli.html')
+    data = request.get_json()
 
+    if not data:
+        return jsonify({"error": "Dados não fornecidos"}), 400
+
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
+    endereco = data.get('endereco')
+    data_nascimento_str = data.get('data_nascimento')
+    forma_pagamento = data.get('forma_pagamento')
+    dias_treino = data.get('dias_treino')
+
+    if not first_name or not last_name:
+        return jsonify({"error": "Nome e sobrenome são obrigatórios"}), 400
+
+    usuario = User.query.filter_by(first_name=first_name, last_name=last_name).first()
+
+    if not usuario:
+        return jsonify({"error": "Usuário não encontrado"}), 404
+
+    # Validando e convertendo a data de nascimento
+    try:
+        data_nascimento = datetime.strptime(data_nascimento_str, "%Y-%m-%d").date() if data_nascimento_str else None
+    except ValueError:
+        return jsonify({"error": "Formato de data inválido para Data de Nascimento."}), 400
+
+    try:   
+        # Atualizando o usuário no banco de dados
+        usuario.endereco = endereco
+        usuario.data_nascimento = data_nascimento
+        usuario.forma_pagamento = forma_pagamento
+        usuario.dias_treino = dias_treino
+    
+        db.session.commit()
+        return jsonify({"message": "Usuário atualizado com sucesso!"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": f"Erro ao atualizar usuário: {str(e)}"}), 500
 
 @app.route('/welcome')
 @login_required

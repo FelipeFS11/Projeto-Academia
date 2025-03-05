@@ -77,6 +77,10 @@
                 document.getElementById("dataNascimento").innerText = data.data_nascimento || "Não informado";
                 document.getElementById("formaPagamento").innerText = data.forma_pagamento || "Não informado";
                 document.getElementById("diasTreino").innerText = data.dias_treino || "Dias de Treino não cadastrados";
+                first_name = data.first_name;
+                last_name = data.last_name;
+
+
             })
             .catch(error => {
                 alert(error.message);

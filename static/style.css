@@ -10,7 +10,7 @@ body {
     font-family: 'Verdana', sans-serif;
     text-align: center;
     background: url('../static/image/FundoM.png') no-repeat center center fixed;
-    background-size: contain;
+    background-size: cover;
     background-color: black;
     height: 100vh; /*define o tamanho da altura*/
     width: 100%; /*define o tamanho da largura*/

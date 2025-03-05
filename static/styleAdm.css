@@ -10,6 +10,7 @@
 #busca{
     background-color: gainsboro;
     color: black;
+    margin-top: -5px;
 }
 
 #busca table{
@@ -25,4 +26,8 @@
 
 #altera{
     margin-top: 30px;
+}
+#nav_adm{
+    margin-top: -8px;
+    margin-bottom: 5px;
 }

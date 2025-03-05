@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="mobile-container">
-        <nav>
+        <nav id="nav_adm">
             <div class="top-bar">
                 <div class="left-section">
                     <button class="back-button">
@@ -26,34 +26,134 @@
                 </div>
             </div>
         </nav>
-        <div class="tabela_info" id="busca">
-            <h2>Informações Pessoais</h2>
-            <table>
-                <tr>
-                    <th>Nome</th>
-                    <td>[Nome]
-                </tr>
-                <tr>
-                    <th>Endereço</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>Data de Nascimento</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>Forma de Pagamento</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>Dias de Treino</th>
-                    <td>[Dias de Treino do Usuário]</td>
-                </tr>
-            </table>        
-        </div>
-        <div class="busca" id="altera">
-            <button type="submit" class="button" onclick="busca()">Alterar</button>
-        </div>
+        
     </div>
+    <div class="busca">
+        <input type="text" id="messageInput" placeholder="Digite um nome">
+        <button type="button" class="button" onclick="busca()">Buscar</button>
+    </div>
+    
+    <div class="tabela_info" id="busca">
+        <h2>Informações do Cliente</h2>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <td><input type="text" id="nome" disabled></td>
+            </tr>
+            <tr>
+                <th>Endereço</th>
+                <td><input type="text" id="endereco" disabled></td>
+            </tr>
+            <tr>
+                <th>Data de Nascimento</th>
+                <td><input type="text" id="dataNascimento" disabled></td>
+            </tr>
+            <tr>
+                <th>Forma de Pagamento</th>
+                <td><input type="text" id="formaPagamento" disabled></td>
+            </tr>
+            <tr>
+                <th>Dias de Treino</th>
+                <td><input type="text" id="diasTreino" disabled></td>
+            </tr>
+        </table>
+        <button type="button" id="editar" class="button" onclick="editar()">Editar</button>
+        <button type="button" id="salvar" class="button" onclick="salvar()" style="display: none;">Salvar</button>
+    </div>
+    <script>
+        let first_name, last_name;
+    
+        function busca() {
+            let nome = document.getElementById("messageInput").value.trim();
+    
+            if (nome === "") {
+                alert("Por favor, digite um nome!");
+                return;
+            }
+    
+            fetch(`/buscar_usuario?nome=${encodeURIComponent(nome)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Usuário não encontrado");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById("nome").value = `${data.first_name} ${data.last_name}` || "Não informado";
+                    document.getElementById("endereco").value = data.endereco || "Não informado";
+                    document.getElementById("dataNascimento").value = data.data_nascimento || "Não informado";
+                    document.getElementById("formaPagamento").value = data.forma_pagamento || "Não informado";
+                    document.getElementById("diasTreino").value = data.dias_treino || "Dias de Treino não cadastrados";
+                    first_name = data.first_name;
+                    last_name = data.last_name;
+                })
+                .catch(error => {
+                    alert(error.message);
+                    console.error("Erro ao buscar usuário:", error);
+                });
+        }
+    
+        function editar() {
+            document.getElementById("nome").disabled = false;
+            document.getElementById("endereco").disabled = false;
+            document.getElementById("dataNascimento").disabled = false;
+            document.getElementById("formaPagamento").disabled = false;
+            document.getElementById("diasTreino").disabled = false;
+            document.getElementById("editar").style.display = "none";
+            document.getElementById("salvar").style.display = "inline-block";
+        }
+    
+        function salvar() {
+            let nome = document.getElementById("nome").value;
+            let endereco = document.getElementById("endereco").value;
+            let dataNascimento = document.getElementById("dataNascimento").value;
+            let formaPagamento = document.getElementById("formaPagamento").value;
+            let diasTreino = document.getElementById("diasTreino").value;
+
+        fetch('/alteraCli', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Definindo o cabeçalho correto
+            },
+            body: JSON.stringify({
+                first_name: first_name,
+                last_name: last_name,
+                endereco: endereco,
+                data_nascimento: dataNascimento,
+                forma_pagamento: formaPagamento,
+                dias_treino: diasTreino
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao atualizar usuário');
+            }
+            return response.json(); // Adicionado para processar a resposta JSON
+        })
+        .then(data => {
+            alert(data.message || 'Usuário atualizado com sucesso!'); // Exibindo a mensagem do servidor
+            document.getElementById("nome").disabled = true;
+            document.getElementById("endereco").disabled = true;
+            document.getElementById("dataNascimento").disabled = true;
+            document.getElementById("formaPagamento").disabled = true;
+            document.getElementById("diasTreino").disabled = true;
+            document.getElementById("editar").style.display = "inline-block";
+            document.getElementById("salvar").style.display = "none";
+        })
+        .catch(error => {
+            alert(error.message);
+            console.error('Erro ao atualizar usuário:', error);
+        });
+
+        console.log(JSON.stringify({
+            first_name: first_name,
+            last_name: last_name,
+            endereco: endereco,
+            data_nascimento: dataNascimento,
+            forma_pagamento: formaPagamento,
+            dias_treino: diasTreino
+        }));
+        }
+    </script>
 </body>
 </html>
