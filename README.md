@@ -24,7 +24,7 @@ Para executar o projeto localmente, siga estas etapas:
 1.  Clone o repositório:
 
     ```bash
-    git clone [https://docs.github.com/articles/referencing-and-citing-content](https://docs.github.com/articles/referencing-and-citing-content)
+    git clone https://github.com/FelipeFS11/Projeto-Academia/
     ```
 
 2.  Navegue até o diretório do projeto:
@@ -33,10 +33,10 @@ Para executar o projeto localmente, siga estas etapas:
     cd [nome do diretório do projeto]
     ```
 
-3.  Instale as dependências do Python (se houver):
+3.  Instale as dependências do Python:
 
     ```bash
-    pip install -r requirements.txt
+    pip install [requerimentos]
     ```
 
 4.  Execute o backend:
