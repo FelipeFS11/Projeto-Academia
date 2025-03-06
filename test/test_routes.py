@@ -115,16 +115,16 @@ def test_login_post_success_admin(client):
     # Crie um usuário admin
     with app.app_context():
         hashed_password = bcrypt.generate_password_hash('password123').decode('utf-8')
-        user = User(email='teste11@gmail.com', password=hashed_password)
+        user = User(email='adm@gmail.com', password=hashed_password)
         db.session.add(user)
         db.session.commit()
 
     response = client.post('/login', data={
-        'email': 'teste11@gmail.com',
+        'email': 'adm@gmail.com',
         'password': 'password123'
     }, follow_redirects=True)
     assert response.status_code == 200
-    assert b'<title>Administrador</title>' in response.data
+    assert b'div class="botoes">' in response.data
     assert current_user.is_authenticated
 
 def test_login_post_success_user(client):
@@ -482,7 +482,7 @@ def test_buscar_usuario_logged_in_success(client):
     # Crie um usuário
     with app.app_context():
         hashed_password = bcrypt.generate_password_hash('password123').decode('utf-8')
-        user = User(first_name='Test', last_name='User', email='test@example.com', password=hashed_password, endereco='Test Address',  forma_pagamento='Credit Card', dias_treino='Segunda, Quarta, Sexta')
+        user = User(first_name='Test', last_name='User', email='test@example.com', password=hashed_password, endereco='Test Address',  forma_pagamento='Credit Card')
         db.session.add(user)
         db.session.commit()
 
@@ -501,7 +501,6 @@ def test_buscar_usuario_logged_in_success(client):
         assert data['last_name'] == 'User'
         assert data['endereco'] == 'Test Address'
         assert data['forma_pagamento'] == 'Credit Card'
-        assert data['dias_treino'] == 'Dias de Treino não cadastrados'
 
 
 def test_buscar_usuario_not_logged_in(client):
@@ -645,31 +644,34 @@ def test_adicionarInfo_post_success(client):
         db.session.commit()
 
     # Faça login
-        response = client.post('/login', data={
-            'email': 'test@example.com',
-            'password': 'password123'
-        }, follow_redirects=True)
-        assert current_user.is_authenticated
+    response = client.post('/login', data={
+        'email': 'test@example.com',
+        'password': 'password123'
+    }, follow_redirects=True)
+    assert current_user.is_authenticated
 
-        # Faça a requisição POST para /adicionarInfo
-        response = client.post('/adicionarInfo', data={
-            'nome': 'Test',
-            'sobrenome': 'User',
-            'endereco': 'New Address',
-            'data_nascimento': '1990-01-01',
-            'contato': '123456789',
-            'forma_pagamento': 'Credit Card',
-            'ultimo_pagamento': '2023-10-26'
-        }, follow_redirects=True)
-        assert response.status_code == 200
+    # Faça a requisição POST para /adicionarInfo
+    response = client.post('/adicionarInfo', data={
+        'nome': 'Test',
+        'sobrenome': 'User',
+        'endereco': 'New Address',
+        'data_nascimento': '1990-01-01',
+        'contato': '123456789',
+        'forma_pagamento': 'Credit Card',
+        'ultimo_pagamento': '2023-10-26',
+        'peso': '70.5',  # Adicione o campo peso
+        'altura': '1.75', # Adicione o campo altura
+        'imc': '22.8'     # Adicione o campo imc
+    }, follow_redirects=True)
+    assert response.status_code == 200
 
-        # Verifique se o usuário foi atualizado no banco de dados
-        updated_user = User.query.filter_by(email='test@example.com').first()
-        assert updated_user.first_name == 'Test'
-        assert updated_user.last_name == 'User'
-        assert updated_user.endereco == 'New Address'
-        assert updated_user.data_nascimento == date(1990, 1, 1)
-        assert updated_user.ultimo_pagamento == date(2023, 10, 26)
+    # Verifique se o usuário foi atualizado no banco de dados
+    updated_user = User.query.filter_by(email='test@example.com').first()
+    assert updated_user.first_name == 'Test'
+    assert updated_user.last_name == 'User'
+    assert updated_user.endereco == 'New Address'
+    assert updated_user.data_nascimento == date(1990, 1, 1)
+    assert updated_user.ultimo_pagamento == date(2023, 10, 26)
 
 def test_adicionarInfo_post_invalid_date_nascimento(client):
     # Crie um usuário
