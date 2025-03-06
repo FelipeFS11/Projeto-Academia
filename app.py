@@ -27,7 +27,6 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(150), nullable=False)
     forma_pagamento = db.Column(db.String(50))
     ultimo_pagamento = db.Column(db.Date)
-    dias_treino = db.Column(db.String(100))
     peso = db.Column(db.Float)
     altura = db.Column(db.Float)
     imc = db.Column(db.Float)
