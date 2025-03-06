@@ -26,15 +26,11 @@ class User(UserMixin, db.Model):
     contato = db.Column(db.String(50))
     password = db.Column(db.String(150), nullable=False)
     forma_pagamento = db.Column(db.String(50))
-<<<<<<< HEAD
     ultimo_pagamento = db.Column(db.Date)
+    dias_treino = db.Column(db.String(100))
     peso = db.Column(db.Float)
     altura = db.Column(db.Float)
     imc = db.Column(db.Float)
-=======
-    ultimo_pagamento = db.Column(db.Date) 
-    dias_treino = db.Column(db.String(100))
->>>>>>> 5628817a3e9adf79ee54bee1ea82543c970d491f
 
 @login_manager.user_loader
 def load_user(user_id):
