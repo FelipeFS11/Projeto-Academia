@@ -1,4 +1,5 @@
-from datetime import datetime
+from datetime import datetime, date
+import json
 from flask import Flask, render_template, redirect, url_for, request, flash, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -25,14 +26,19 @@ class User(UserMixin, db.Model):
     contato = db.Column(db.String(50))
     password = db.Column(db.String(150), nullable=False)
     forma_pagamento = db.Column(db.String(50))
+<<<<<<< HEAD
     ultimo_pagamento = db.Column(db.Date)
     peso = db.Column(db.Float)
     altura = db.Column(db.Float)
     imc = db.Column(db.Float)
+=======
+    ultimo_pagamento = db.Column(db.Date) 
+    dias_treino = db.Column(db.String(100))
+>>>>>>> 5628817a3e9adf79ee54bee1ea82543c970d491f
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
 
 @app.route('/')
 def home():
@@ -57,7 +63,7 @@ def register():
             return redirect(url_for('register'))
         
         if password != confirm_password:
-            flash('As senhas não coincidem', 'danger')
+            flash('As senhas nao coincidem', 'danger')
             return redirect(url_for('register'))
         
         if User.query.filter_by(email=email).first():
