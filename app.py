@@ -1,10 +1,12 @@
-from datetime import datetime
+from datetime import datetime, date
+import json
 from flask import Flask, render_template, redirect, url_for, request, flash, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 from flask_migrate import Migrate
 from flask_login import current_user
+import pytest
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -26,10 +28,11 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(150), nullable=False)
     forma_pagamento = db.Column(db.String(50))
     ultimo_pagamento = db.Column(db.Date) 
+    dias_treino = db.Column(db.String(100))
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
 
 @app.route('/')
 def home():
@@ -54,7 +57,7 @@ def register():
             return redirect(url_for('register'))
         
         if password != confirm_password:
-            flash('As senhas não coincidem', 'danger')
+            flash('As senhas nao coincidem', 'danger')
             return redirect(url_for('register'))
         
         if User.query.filter_by(email=email).first():
