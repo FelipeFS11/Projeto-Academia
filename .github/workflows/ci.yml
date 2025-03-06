@@ -24,3 +24,5 @@ jobs:
         pip install pytest pytest-cov
     - name: Run test with coverage
       run: pytest --cov=app test/
+    - name: Add project directory to PYTHONPATH
+      run: echo "PYTHONPATH=$(pwd):$PYTHONPATH" >> $GITHUB_ENV
