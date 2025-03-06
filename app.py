@@ -25,7 +25,10 @@ class User(UserMixin, db.Model):
     contato = db.Column(db.String(50))
     password = db.Column(db.String(150), nullable=False)
     forma_pagamento = db.Column(db.String(50))
-    ultimo_pagamento = db.Column(db.Date) 
+    ultimo_pagamento = db.Column(db.Date)
+    peso = db.Column(db.Float)
+    altura = db.Column(db.Float)
+    imc = db.Column(db.Float)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -78,7 +81,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            if user.email == 'teste11@gmail.com':
+            if user.email == 'adm@gmail.com':
                 return redirect(url_for('administrador'))
             else:
                 return redirect(url_for('welcome'))
@@ -211,6 +214,9 @@ def adicionarInfo():
         contato = request.form.get('contato')
         forma_pagamento = request.form.get('forma_pagamento')
         ultimo_pagamento_str = request.form.get('ultimo_pagamento')
+        peso = request.form.get('peso')
+        altura = request.form.get('altura')
+        imc = request.form.get('imc')
 
         # Validando e convertendo a data de nascimento
         try:
@@ -218,13 +224,28 @@ def adicionarInfo():
         except ValueError:
             flash('Formato de data inválido para Data de Nascimento.', 'danger')
             return redirect(url_for('user'))
-
+        
         # Validando e convertendo a data do último pagamento
         try:
             ultimo_pagamento = datetime.strptime(ultimo_pagamento_str, "%Y-%m-%d").date()
         except ValueError:
             flash('Formato de data inválido para Último Pagamento.', 'danger')
             return redirect(url_for('user'))
+        
+        # Validando e convertendo peso e altura para números
+        try:
+            peso = float(peso)
+            altura = float(altura)
+        except ValueError:
+            flash('Peso ou altura inválidos. Certifique-se de que ambos sejam números.', 'danger')
+            return redirect(url_for('user'))
+        
+        # Calculando o IMC (peso / altura^2)
+        if altura == 0:
+            flash('Altura não pode ser zero.', 'danger')
+            return redirect(url_for('user'))
+        
+        imc = round(peso / (altura ** 2), 2)  # Arredonda para 2 casas decimais
 
         # Atualizando o usuário no banco de dados
         current_user.first_name = nome
@@ -234,6 +255,9 @@ def adicionarInfo():
         current_user.contato = contato
         current_user.forma_pagamento = forma_pagamento
         current_user.ultimo_pagamento = ultimo_pagamento
+        current_user.peso = peso
+        current_user.altura = altura
+        current_user.imc = imc
 
         # Salvando as alterações
         db.session.commit()

@@ -19,12 +19,25 @@
             </div>
             <div class="right-section">
                 <i class="fas fa-user user-icon"></i>
-                <span class="user-name">{{ current_user.first_name}}</span>
+                <span class="user-name">{{ current_user.first_name }}</span>
             </div>
         </div>
     </nav>
     <main class="main">
         <h2>Avaliações Físicas</h2>
+        <table>
+            <tr>
+                <th>IMC</th>
+                <td>{{ current_user.imc }}</td>
+            <tr>
+                <th>Peso</th>
+                <td>{{ current_user.peso }}</td>
+            </tr>
+            <tr>
+                <th>Altura</th>
+                <td>{{ current_user.altura }}</td>
+            </tr>
+        </table>        
     </main>
 </body>
 </html>
