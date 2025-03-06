@@ -2,8 +2,8 @@ import pytest
 from app import app
 from app import User
 from datetime import date, datetime
-from app import app, db, bcrypt, login_manager
-from app import app, db, bcrypt
+from app import  db, bcrypt, login_manager
+from app import  db, bcrypt
 from flask_login import login_user, current_user
 import json
 #--------------------#
@@ -597,3 +597,103 @@ def test_alteraCli_post_invalid_date(client):
         response = client.post('/alteraCli', data=json.dumps(data), content_type='application/json')
         assert response.status_code == 400
         assert json.loads(response.data)['error'] == 'Formato de data inválido para Data de Nascimento.'
+
+@pytest.fixture
+def client():
+    app.config['TESTING'] = True
+    app.config['WTF_CSRF_ENABLED'] = False  # Desabilita CSRF para testes
+    with app.test_client() as client:
+        with app.app_context():
+            db.create_all()
+        yield client
+        with app.app_context():
+            db.session.remove()
+            db.drop_all()
+
+def test_adicionarInfo_get_logged_in(client):
+    # Crie um usuário
+    with app.app_context():
+        hashed_password = bcrypt.generate_password_hash('password123').decode('utf-8')
+        user = User(email='user@example.com', password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+
+    # Faça login
+        response = client.post('/login', data={
+            'email': 'user@example.com',
+            'password': 'password123'
+        }, follow_redirects=True)
+        assert current_user.is_authenticated
+
+        # Acesse a rota /adicionarInfo (GET)
+        response = client.get('/adicionarInfo')
+        assert response.status_code == 200
+        assert b'<legend>Dados Pessoais</legend>' in response.data
+
+def test_adicionarInfo_get_not_logged_in(client):
+    response = client.get('/adicionarInfo', follow_redirects=True)
+    assert response.status_code == 200
+    assert b'<title>Login</title>' in response.data # Verifica se redireciona para login
+    assert not current_user.is_authenticated
+
+def test_adicionarInfo_post_success(client):
+    # Crie um usuário
+    with app.app_context():
+        hashed_password = bcrypt.generate_password_hash('password123').decode('utf-8')
+        user = User(email='test@example.com', password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+
+    # Faça login
+        response = client.post('/login', data={
+            'email': 'test@example.com',
+            'password': 'password123'
+        }, follow_redirects=True)
+        assert current_user.is_authenticated
+
+        # Faça a requisição POST para /adicionarInfo
+        response = client.post('/adicionarInfo', data={
+            'nome': 'Test',
+            'sobrenome': 'User',
+            'endereco': 'New Address',
+            'data_nascimento': '1990-01-01',
+            'contato': '123456789',
+            'forma_pagamento': 'Credit Card',
+            'ultimo_pagamento': '2023-10-26'
+        }, follow_redirects=True)
+        assert response.status_code == 200
+
+        # Verifique se o usuário foi atualizado no banco de dados
+        updated_user = User.query.filter_by(email='test@example.com').first()
+        assert updated_user.first_name == 'Test'
+        assert updated_user.last_name == 'User'
+        assert updated_user.endereco == 'New Address'
+        assert updated_user.data_nascimento == date(1990, 1, 1)
+        assert updated_user.ultimo_pagamento == date(2023, 10, 26)
+
+def test_adicionarInfo_post_invalid_date_nascimento(client):
+    # Crie um usuário
+    with app.app_context():
+        hashed_password = bcrypt.generate_password_hash('password123').decode('utf-8')
+        user = User(email='test@example.com', password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+
+    # Faça login
+        response = client.post('/login', data={
+            'email': 'test@example.com',
+            'password': 'password123'
+        }, follow_redirects=True)
+        assert current_user.is_authenticated
+
+        # Faça a requisição POST para /adicionarInfo com data de nascimento inválida
+        response = client.post('/adicionarInfo', data={
+            'nome': 'Test',
+            'sobrenome': 'User',
+            'endereco': 'New Address',
+            'data_nascimento': '01-01-1990', # data inválida
+            'contato': '123456789',
+            'forma_pagamento': 'Credit Card',
+            'ultimo_pagamento': '2023-10-26'
+        }, follow_redirects=True)
+        assert response.status_code == 200
